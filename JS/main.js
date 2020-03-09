@@ -1,7 +1,7 @@
 let page = document.getElementById("page")
 page.className = "container"
 
-function buildElement(elementType, classes, id, textContent, onclick) {
+function buildElement(elementType, classes, id, textContent) {
     let element = document.createElement(elementType)
     element.className = classes;
     element.id = id;
@@ -16,32 +16,38 @@ function buildElement(elementType, classes, id, textContent, onclick) {
 let titleDiv = buildElement("div", "container text-center mt-5", "title", "<h1>Tic-Tac-Toe</h1>")
 page.appendChild(titleDiv);
 
+let promptDiv = buildElement("h5", "", "prompt", "<h5>It's X's turn</h5>")
+titleDiv.appendChild(promptDiv)
+
 
 // <-------------------------SET UP BOARD DIV------------------------->
 
-let boardDiv = buildElement("div", "container", "board", "", "")
+let boardDiv = buildElement("div", "container", "board", "")
 page.appendChild(boardDiv)
 
 
-let row1 = buildElement("div", "row text-center mt-4 mb-4", "", "", "")
+let row1 = buildElement("div", "row text-center mt-4 mb-4", "", "")
 boardDiv.appendChild(row1)
 
-let col1 = buildElement("div", "col-md-4", "", "", "")
+let col1 = buildElement("div", "col-md-4", "", "")
 row1.appendChild(col1)
 
-let col2 = buildElement("div", "col-md-4", "", "", "")
+let col2 = buildElement("div", "col-md-4", "", "")
 row1.appendChild(col2)
 
-let j = 1;
+
+let k = 1;
 for (let i = 0; i < 3; i++) {
-    let row2 = buildElement("div", "row text-center", "", "", "")
+    let row2 = buildElement("div", "row text-center", "", "")
     col2.appendChild(row2)
-    for (let i = 0; i < 3; i++) {
-        let col = buildElement("div", "col border p-5 bg-white", "game" + j, "<h2>X</h2>", "gameClick()")
-        j++
+    for (let j = 0; j < 3; j++) {
+        let col = buildElement("div", "col border p-5 bg-white", "game" + k, "")
+        col.onclick = gameClick
+        k++
         row2.appendChild(col)
     }
 }
+
 
 let col3 = buildElement("div", "col-md-4", "", "")
 row1.appendChild(col3)
@@ -52,20 +58,15 @@ let buttonDiv = buildElement("button", "container text-center", "button", "Resta
 page.appendChild(buttonDiv);
 
 
-// <------------------------SET UP GAME OPTIONS------------------------>
-
-
-
-let promptDiv = buildElement("h5", "", "prompt", "<h5>It's X's turn</h5>")
-titleDiv.appendChild(promptDiv)
-
-
 // <------------------------ONCLICK FUNCTION------------------------>
 
-let players = ["X", "O"];
+let playerNow = false;
 
 function gameClick() {
-    let change = document.getElementById("game" + j);
-    //if (change.value == "true") {
-
+    playerNow = !playerNow
+    if (playerNow === false) {
+        document.getElementById(this.id).innerHTML = "X"
+    } else if (playerNow === true) {
+        document.getElementById(this.id).innerHTML = "O"
+    }
 }
