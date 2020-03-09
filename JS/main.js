@@ -1,39 +1,53 @@
 let page = document.getElementById("page")
 page.className = "container"
 
+function buildElement(elementType, classes, id, textContent) {
+    let element = document.createElement(elementType)
+    element.className = classes
+    element.id = id
+    element.textContent = textContent
+    console.log(textContent)
+    return element
+
+}
+
 
 // <-------------------------SET UP TITLE DIV------------------------->
-let titleDiv = document.createElement("div");
-titleDiv.id = "title";
-titleDiv.className = "container text-center mt-5"
+
+let titleDiv = buildElement("div", "container text-center mt-5", "title", "")
 page.appendChild(titleDiv);
 
-//feed title to titleDiv
-let title = document.createElement("h1")
-title.textContent = "Tic-Tac-Toe";
-titleDiv.appendChild(title);
+let title = buildElement("h1", "", "", "Tic-Tac-Toe")
+titleDiv.appendChild(title)
+
 
 // <-------------------------SET UP BOARD DIV------------------------->
-let boardDiv = document.createElement("div");
-boardDiv.className = "container"
-boardDiv.id = "board";
-page.appendChild(boardDiv);
 
-//feed row to boardDiv
-let row1 = document.createElement("div")
-row1.className = "row"
-boardDiv.appendChild(row1)
+let boardDiv = buildElement("div", "container", "board", "")
+page.appendChild(boardDiv)
 
-//feed cols to row
-let col1 = document.createElement("div")
-col1.className = "col-md-4 col-sm-12 offset-md-4"
-row1.appendChild(col1)
+//feed row 1 into board
+
+
+for (let i = 0; i <= 3; i++) {
+    let row = buildElement("div", "row", "", "")
+    boardDiv.appendChild(row)
+    for (let i = 0; i <= 3; i++) {
+        let col = buildElement("div", "col-md-4", "", "")
+        row.appendChild(col)
+    }
+}
+
+
+
+//feed row 2 into board
+
+
+
 
 
 
 
 // <------------------------SET UP BUTTON DIVE------------------------>
-let buttonDiv = document.createElement("div");
-buttonDiv.className = "container"
-buttonDiv.id = "button";
+let buttonDiv = buildElement("div", "container", "button", "")
 page.appendChild(buttonDiv);
