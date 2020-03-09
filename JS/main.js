@@ -40,7 +40,7 @@ for (let i = 0; i < 3; i++) {
     let row2 = buildElement("div", "row text-center", "", "")
     col2.appendChild(row2)
     for (let j = 0; j < 3; j++) {
-        let col = buildElement("div", "col border p-5 bg-white", "game" + k, "")
+        let col = buildElement("div", "col border p-5 bg-white", k, "")
         col.onclick = gameClick;
         k++
         row2.appendChild(col)
@@ -86,16 +86,15 @@ function gameClick() {
 
     }
     for (let i = 0; i < winners.length; i++) {
-        let ans = document.getElementById("game" + 4)
-        let x = winners[i][0]
-        console.log(x)
-    }
+        let check1 = document.getElementById(winners[i][0]).textContent;
+        let check2 = document.getElementById(winners[i][1]).textContent;
+        let check3 = document.getElementById(winners[i][2]).textContent;
 
-    //     if (winners[i][0] === ans) {
-    //         document.getElementById("prompt").innerHTML = "GAME OVER: X wins!";
-    //     }
-    //     // if (winners[i][i] === "O") {
-    //     //     document.getElementById("prompt").innerHTML = "GAME OVER: O wins!";
-    //     // }
-    // }
+        if (check1 === check2 && check2 === check3 && check3 === "O") {
+            document.getElementById("prompt").innerHTML = "GAME OVER: O wins!"
+        }
+        if (check1 === check2 && check2 === check3 && check3 === "X") {
+            document.getElementById("prompt").innerHTML = "GAME OVER: X wins!"
+        }
+    }
 }
