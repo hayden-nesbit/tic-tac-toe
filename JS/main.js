@@ -36,6 +36,19 @@ function hideStartBtn() {
     let startBtn = document.getElementById("prompt").style = "display: none";
 }
 
+let gameIds = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+function deleteClick() {
+    for (let i = 0; i < gameIds.length; i++) {
+        if ((document.getElementById("text").innerHTML = "<h5>GAME OVER: X wins!</h5>")) {
+            document.getElementById(gameIds[i]).onclick = " ";
+        }
+        if ((document.getElementById("text").innerHTML = "<h5>GAME OVER: O wins!</h5>")) {
+            document.getElementById(gameIds[i]).onclick = " ";
+        }
+    }
+}
+
 ///This function alternates playerNow between "true" and "false", and lets the innerHTML alternate "X" and "O"
 //It also loops through an array of all possible winning combinations and checks if the col at each location has the same text, either "X" or "O"
 
@@ -73,15 +86,16 @@ function gameClick(e) {
 
         if (check1 === check2 && check2 === check3 && check3 === "O") {
             document.getElementById("text").innerHTML = "<h5>GAME OVER: O wins!</h5>";
-            e.target.onclick = "";
+            deleteClick();
         }
 
         if (check1 === check2 && check2 === check3 && check3 === "X") {
             document.getElementById("text").innerHTML = "<h5>GAME OVER: X wins!</h5>";
+            deleteClick();
 
         } else if (count >= 9) {
             document.getElementById("text").innerHTML = "<h5>GAME OVER: It's a draw!</h5>"
-            e.target.onclick = "";
+
         }
     }
     e.target.onclick = "";
