@@ -20,6 +20,7 @@ function buildElement(elementType, classes, id, textContent) {
     return element
 }
 
+
 let gameIds = ["tile1", "tile2", "tile3", "tile4", "tile5", "tile6", "tile7", "tile8", "tile9"]
 
 function deleteClick() {
@@ -87,10 +88,15 @@ function gameClick(e) {
 // <-------------------------SET UP STATE------------------------->
 
 
-
 function restartGame() {
 
     page.innerHTML = "";
+
+    let titleDiv = buildElement("div", "container text-center mt-5", "title", "<h1>Tic-Tac-Toe</h1>")
+    page.appendChild(titleDiv);
+
+    let textDiv = buildElement("div", "text-center mt-3", "text", "<h5>Make your move.</h5>")
+    page.appendChild(textDiv)
 
     let boardDiv = buildElement("div", "container", "board", "")
     page.appendChild(boardDiv)
@@ -103,15 +109,6 @@ function restartGame() {
 
     let col2 = buildElement("div", "col-md-4", "", "")
     row1.appendChild(col2)
-
-    let titleDiv = buildElement("div", "row d-flex mt-5", "title", "<h1>Tic-Tac-Toe</h1> ")
-    col2.appendChild(titleDiv);
-
-    let infoBtn = buildElement("i", "fas fa-question-circle text-secondary text-right h4 mt-3 ml-3", "info", "")
-    titleDiv.appendChild(infoBtn)
-
-    let textDiv = buildElement("div", "text-center mt-2 mb-3", "text", "<h5>Make your move.</h5>")
-    col2.appendChild(textDiv)
 
     let k = 1;
     let col;
