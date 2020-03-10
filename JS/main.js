@@ -4,17 +4,20 @@
 let page = document.getElementById("page")
 page.className = "container"
 
-function viewChange() {
-    view++
-    updateView()
-}
+let scoreX = 0;
+let scoreO = 0;
+
+// function viewChange() {
+//     view++
+//     restartGame()
+// }
 
 function reset() {
-    if (!(view === 0)) {
-        view = 1;
-        count = 0;
-    }
-    updateView();
+    // if (!(view === 0)) {
+    //     view = 1;
+    count = 0;
+    // }
+    restartGame();
 }
 
 function buildElement(elementType, classes, id, textContent) {
@@ -29,7 +32,7 @@ function setHeader() {
     let titleDiv = buildElement("div", "container text-center mt-5", "title", "<h1>Tic-Tac-Toe</h1>")
     page.appendChild(titleDiv);
     let promptDiv = buildElement("button", "btn btn-primary", "prompt", "Start Game")
-    promptDiv.onclick = viewChange;
+        // promptDiv.onclick = viewChange;
     titleDiv.appendChild(promptDiv);
 }
 
@@ -77,16 +80,20 @@ function gameClick(e) {
         document.getElementById(this.id).innerHTML = "O"
         document.getElementById("text").innerHTML = "<h5>It's X's turn</h5>"
     }
-    console.log("starting loop")
+
     for (let i = 0; i < win.length; i++) {
         let check1 = document.getElementById(win[i][0]).textContent;
         let check2 = document.getElementById(win[i][1]).textContent;
         let check3 = document.getElementById(win[i][2]).textContent;
         if (check1 === check2 && check2 === check3 && check3 === "O") {
             document.getElementById("text").innerHTML = "<h5>GAME OVER: O wins!</h5>";
+            scoreO = scoreO + 1;
+            document.getElementById("playerO").innerHTML = "<h5>O wins: </h5>" + scoreO;
             deleteClick();
         } else if (check1 === check2 && check2 === check3 && check3 === "X") {
             document.getElementById("text").innerHTML = "<h5>GAME OVER: X wins!</h5>";
+            scoreX = scoreX + 1;
+            document.getElementById("playerX").innerHTML = "<h5>X wins: </h5>" + scoreX;
             deleteClick();
 
         } else if (count >= 9) {
@@ -99,65 +106,62 @@ function gameClick(e) {
 
 // <-------------------------SET UP STATE------------------------->
 
-let view = 0;
 
-function updateView() {
-    switch (view) {
 
-        case 0:
-            setHeader();
-            break;
+function restartGame() {
 
-        case 1:
-            page.innerHTML = "";
+    page.innerHTML = "";
 
-            setHeader();
-            hideStartBtn();
+    setHeader();
+    hideStartBtn();
 
-            let textDiv = buildElement("div", "text-center mt-3", "text", "<h5>Ok. Make your move.</h5>")
-            page.appendChild(textDiv)
+    let textDiv = buildElement("div", "text-center mt-3", "text", "<h5>Ok. Make your move.</h5>")
+    page.appendChild(textDiv)
 
-            let boardDiv = buildElement("div", "container", "board", "")
-            page.appendChild(boardDiv)
+    let boardDiv = buildElement("div", "container", "board", "")
+    page.appendChild(boardDiv)
 
-            let row1 = buildElement("div", "row text-center mt-4 mb-4", "", "")
-            boardDiv.appendChild(row1)
+    let row1 = buildElement("div", "row text-center mt-4 mb-4", "", "")
+    boardDiv.appendChild(row1)
 
-            let col1 = buildElement("div", "col-md-4", "", "")
-            row1.appendChild(col1)
+    let col1 = buildElement("div", "col-md-4", "", "")
+    row1.appendChild(col1)
 
-            let col2 = buildElement("div", "col-md-4", "", "")
-            row1.appendChild(col2)
+    let col2 = buildElement("div", "col-md-4", "", "")
+    row1.appendChild(col2)
 
-            let k = 1;
-            let col;
-            for (let i = 0; i < 3; i++) {
-                let row2 = buildElement("div", "row text-center", "", "")
-                col2.appendChild(row2)
-                for (let j = 0; j < 3; j++) {
-                    col = buildElement("div", "col border bg-white pt-5", "tile" + k, "")
-                    col.onclick = gameClick;
-                    k++
-                    row2.appendChild(col)
-                }
-            }
-
-            let row3 = buildElement("div", "row text-center", "", "")
-            col2.appendChild(row3)
-            for (let c = 0; c < 3; c++) {
-                colB = buildElement("div", "col", "c" + k, "")
-                k++
-                row3.appendChild(colB)
-            }
-
-            let col3 = buildElement("div", "col-md-4", "", "")
-            row1.appendChild(col3)
-
-            let resetBtn = buildElement("button", "btn btn-danger mt-4", "", "Reset")
-            resetBtn.onclick = reset;
-            document.getElementById("c11").appendChild(resetBtn);
-            break;
-
+    let k = 1;
+    let col;
+    for (let i = 0; i < 3; i++) {
+        let row2 = buildElement("div", "row text-center", "", "")
+        col2.appendChild(row2)
+        for (let j = 0; j < 3; j++) {
+            col = buildElement("div", "col border bg-white pt-5", "tile" + k, "")
+            col.onclick = gameClick;
+            k++
+            row2.appendChild(col)
+        }
     }
+
+    let row3 = buildElement("div", "row text-center", "", "")
+    col2.appendChild(row3)
+    for (let c = 0; c < 3; c++) {
+        colB = buildElement("div", "col", "c" + k, "")
+        k++
+        row3.appendChild(colB)
+    }
+
+    let col3 = buildElement("div", "col-md-4", "", "")
+    row1.appendChild(col3)
+
+    let resetBtn = buildElement("button", "btn btn-secondary mt-5", "", "Reset")
+    resetBtn.onclick = reset;
+    document.getElementById("c11").appendChild(resetBtn);
+
+    let playerX = buildElement("div", "text-center text-primary mt-5", "playerX", "<h5>X wins: </h5>" + scoreX)
+    document.getElementById("c12").appendChild(playerX);
+
+    let playerO = buildElement("div", "text-center text-success mt-5", "playerO", "<h5>O wins: </h5>" + scoreO)
+    document.getElementById("c10").appendChild(playerO);
 
 }
