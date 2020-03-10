@@ -12,6 +12,7 @@ function viewChange() {
 function reset() {
     if (!(view === 0)) {
         view = 1;
+        count = 0;
     }
     updateView();
 }
@@ -42,8 +43,7 @@ function deleteClick() {
     for (let i = 0; i < gameIds.length; i++) {
         if ((document.getElementById("text").innerHTML = "<h5>GAME OVER: X wins!</h5>")) {
             document.getElementById(gameIds[i]).onclick = " ";
-        }
-        if ((document.getElementById("text").innerHTML = "<h5>GAME OVER: O wins!</h5>")) {
+        } else {
             document.getElementById(gameIds[i]).onclick = " ";
         }
     }
@@ -64,6 +64,7 @@ let win = [
     [3, 5, 7]
 ]
 
+
 let count = 0;
 
 function gameClick(e) {
@@ -73,29 +74,28 @@ function gameClick(e) {
     if (playerNow === false && document.getElementById(this.id).innerHTML === '') {
         document.getElementById(this.id).innerHTML = "X"
         document.getElementById("text").innerHTML = "<h5>It's O's turn</h5>"
-    }
-    if (playerNow === true && document.getElementById(this.id).innerHTML === '') {
+    } else {
         document.getElementById(this.id).innerHTML = "O"
         document.getElementById("text").innerHTML = "<h5>It's X's turn</h5>"
-
     }
+    console.log("starting loop")
     for (let i = 0; i < win.length; i++) {
         let check1 = document.getElementById(win[i][0]).textContent;
         let check2 = document.getElementById(win[i][1]).textContent;
         let check3 = document.getElementById(win[i][2]).textContent;
-
+        console.log({ check1, check2, check3 })
+        console.log(check1 === check2)
+        console.log(check2 === check3)
+        console.log(check3)
         if (check1 === check2 && check2 === check3 && check3 === "O") {
             document.getElementById("text").innerHTML = "<h5>GAME OVER: O wins!</h5>";
             deleteClick();
-        }
-
-        if (check1 === check2 && check2 === check3 && check3 === "X") {
+        } else if (check1 === check2 && check2 === check3 && check3 === "X") {
             document.getElementById("text").innerHTML = "<h5>GAME OVER: X wins!</h5>";
             deleteClick();
 
         } else if (count >= 9) {
             document.getElementById("text").innerHTML = "<h5>GAME OVER: It's a draw!</h5>"
-
         }
     }
     e.target.onclick = "";
