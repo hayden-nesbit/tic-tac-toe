@@ -37,11 +37,11 @@ function hideStartBtn() {
     let startBtn = document.getElementById("prompt").style = "display: none";
 }
 
-let gameIds = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+let gameIds = ["tile1", "tile2", "tile3", "tile4", "tile5", "tile6", "tile7", "tile8", "tile9"]
 
 function deleteClick() {
     for (let i = 0; i < gameIds.length; i++) {
-        if ((document.getElementById("text").innerHTML = "<h5>GAME OVER: X wins!</h5>")) {
+        if ((document.getElementById("text").innerHTML == "<h5>GAME OVER: X wins!</h5>")) {
             document.getElementById(gameIds[i]).onclick = " ";
         } else {
             document.getElementById(gameIds[i]).onclick = " ";
@@ -54,16 +54,15 @@ function deleteClick() {
 
 let playerNow = false;
 let win = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9],
-    [1, 4, 7],
-    [2, 5, 8],
-    [3, 6, 9],
-    [1, 5, 9],
-    [3, 5, 7]
+    ["tile1", "tile2", "tile3"],
+    ["tile4", "tile5", "tile6"],
+    ["tile7", "tile8", "tile9"],
+    ["tile1", "tile4", "tile7"],
+    ["tile2", "tile5", "tile8"],
+    ["tile3", "tile6", "tile9"],
+    ["tile1", "tile5", "tile9"],
+    ["tile3", "tile5", "tile7"]
 ]
-
 
 let count = 0;
 
@@ -83,10 +82,6 @@ function gameClick(e) {
         let check1 = document.getElementById(win[i][0]).textContent;
         let check2 = document.getElementById(win[i][1]).textContent;
         let check3 = document.getElementById(win[i][2]).textContent;
-        console.log({ check1, check2, check3 })
-        console.log(check1 === check2)
-        console.log(check2 === check3)
-        console.log(check3)
         if (check1 === check2 && check2 === check3 && check3 === "O") {
             document.getElementById("text").innerHTML = "<h5>GAME OVER: O wins!</h5>";
             deleteClick();
@@ -140,7 +135,7 @@ function updateView() {
                 let row2 = buildElement("div", "row text-center", "", "")
                 col2.appendChild(row2)
                 for (let j = 0; j < 3; j++) {
-                    col = buildElement("div", "col border p-5 bg-white", k, "")
+                    col = buildElement("div", "col border p-5 bg-white", "tile" + k, "")
                     col.onclick = gameClick;
                     k++
                     row2.appendChild(col)
