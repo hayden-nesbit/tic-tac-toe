@@ -24,7 +24,7 @@ function buildElement(elementType, classes, id, textContent) {
     return element
 }
 
-function setTitle() {
+function setHeader() {
     let titleDiv = buildElement("div", "container text-center mt-5", "title", "<h1>Tic-Tac-Toe</h1>")
     page.appendChild(titleDiv);
     let promptDiv = buildElement("button", "btn btn-primary", "prompt", "Start Game")
@@ -32,38 +32,12 @@ function setTitle() {
     titleDiv.appendChild(promptDiv);
 }
 
-
-function gameClick() {
-    playerNow = !playerNow
-
-    if (playerNow === false) {
-        document.getElementById(this.id).innerHTML = "X"
-        document.getElementById("text").innerHTML = "<h5>It's O's turn</h5>"
-
-
-    } else if (playerNow === true) {
-        document.getElementById(this.id).innerHTML = "O"
-        document.getElementById("text").innerHTML = "<h5>It's X's turn</h5>"
-
-    }
-    for (let i = 0; i < win.length; i++) {
-        let check1 = document.getElementById(win[i][0]).textContent;
-        let check2 = document.getElementById(win[i][1]).textContent;
-        let check3 = document.getElementById(win[i][2]).textContent;
-
-        if (check1 === check2 && check2 === check3 && check3 === "O") {
-            document.getElementById("text").innerHTML = "<h5>GAME OVER: O wins!</h5>"
-            document.getElementById(this.id).style.color = "red";
-        }
-        if (check1 === check2 && check2 === check3 && check3 === "X") {
-            document.getElementById("text").innerHTML = "<h5>GAME OVER: X wins!</h5>"
-        }
-        // if (!(check1 === check2 && check2 === check3 && check3)) {
-        //     document.getElementById("text").innerHTML = "<h5>GAME OVER: It's a draw!</h5>"
-        // }
-    }
-
+function hideStartBtn() {
+    let startBtn = document.getElementById("prompt").style = "display: none";
 }
+
+///This function alternates playerNow between "true" and "false", and lets the innerHTML alternate "X" and "O"
+//It also loops through an array of all possible winning combinations and checks if the col at each location has the same text, either "X" or "O"
 
 let playerNow = false;
 let win = [
@@ -77,6 +51,37 @@ let win = [
     [3, 5, 7]
 ]
 
+function gameClick() {
+    playerNow = !playerNow
+
+    if (playerNow === false && document.getElementById(this.id).innerHTML === '') {
+        document.getElementById(this.id).innerHTML = "X"
+        document.getElementById("text").innerHTML = "<h5>It's O's turn</h5>"
+    }
+    if (playerNow === true && document.getElementById(this.id).innerHTML === '') {
+        document.getElementById(this.id).innerHTML = "O"
+        document.getElementById("text").innerHTML = "<h5>It's X's turn</h5>"
+
+    }
+    for (let i = 0; i < win.length; i++) {
+        let check1 = document.getElementById(win[i][0]).textContent;
+        let check2 = document.getElementById(win[i][1]).textContent;
+        let check3 = document.getElementById(win[i][2]).textContent;
+
+        if (check1 === check2 && check2 === check3 && check3 === "O") {
+            document.getElementById("text").innerHTML = "<h5>GAME OVER: O wins!</h5>"
+        }
+
+        if (check1 === check2 && check2 === check3 && check3 === "X") {
+            document.getElementById("text").innerHTML = "<h5>GAME OVER: X wins!</h5>"
+        }
+        // if (!(check1 === check2 && check2 === check3)) {
+        //     document.getElementById("text").innerHTML = "<h5>GAME OVER: It's a draw!</h5>"
+        // }
+    }
+
+}
+
 // <-------------------------SET UP STATE------------------------->
 
 let view = 0;
@@ -85,13 +90,14 @@ function updateView() {
     switch (view) {
 
         case 0:
-            setTitle();
+            setHeader();
             break;
 
         case 1:
             page.innerHTML = "";
 
-            setTitle();
+            setHeader();
+            hideStartBtn();
 
             let textDiv = buildElement("div", "text-center mt-3", "text", "<h5>Ok. Make your move.</h5>")
             page.appendChild(textDiv)
@@ -123,9 +129,6 @@ function updateView() {
 
             let col3 = buildElement("div", "col-md-4", "", "")
             row1.appendChild(col3)
-
-            ///This function alternates playerNow between "true" and "false", and lets the innerHTML alternate "X" and "O"
-            //It also loops through an array of all possible winning combinations and checks if the col at each location has the same text, either "X" or "O"
 
             let resetBtn = buildElement("button", "btn btn-secondary mt-4", "", "Reset Game")
             resetBtn.onclick = reset;
