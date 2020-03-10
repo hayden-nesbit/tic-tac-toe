@@ -7,16 +7,8 @@ page.className = "container"
 let scoreX = 0;
 let scoreO = 0;
 
-// function viewChange() {
-//     view++
-//     restartGame()
-// }
-
 function reset() {
-    // if (!(view === 0)) {
-    //     view = 1;
     count = 0;
-    // }
     restartGame();
 }
 
@@ -26,18 +18,6 @@ function buildElement(elementType, classes, id, textContent) {
     element.id = id;
     element.innerHTML = textContent;
     return element
-}
-
-function setHeader() {
-    let titleDiv = buildElement("div", "container text-center mt-5", "title", "<h1>Tic-Tac-Toe</h1>")
-    page.appendChild(titleDiv);
-    let promptDiv = buildElement("button", "btn btn-primary", "prompt", "Start Game")
-        // promptDiv.onclick = viewChange;
-    titleDiv.appendChild(promptDiv);
-}
-
-function hideStartBtn() {
-    let startBtn = document.getElementById("prompt").style = "display: none";
 }
 
 let gameIds = ["tile1", "tile2", "tile3", "tile4", "tile5", "tile6", "tile7", "tile8", "tile9"]
@@ -88,12 +68,12 @@ function gameClick(e) {
         if (check1 === check2 && check2 === check3 && check3 === "O") {
             document.getElementById("text").innerHTML = "<h5>GAME OVER: O wins!</h5>";
             scoreO = scoreO + 1;
-            document.getElementById("playerO").innerHTML = "<h5>O wins: </h5>" + scoreO;
+            document.getElementById("playerO").innerHTML = "<h4>O wins: </h4>" + scoreO;
             deleteClick();
         } else if (check1 === check2 && check2 === check3 && check3 === "X") {
             document.getElementById("text").innerHTML = "<h5>GAME OVER: X wins!</h5>";
             scoreX = scoreX + 1;
-            document.getElementById("playerX").innerHTML = "<h5>X wins: </h5>" + scoreX;
+            document.getElementById("playerX").innerHTML = "<h4>X wins: </h4>" + scoreX;
             deleteClick();
 
         } else if (count >= 9) {
@@ -112,12 +92,6 @@ function restartGame() {
 
     page.innerHTML = "";
 
-    setHeader();
-    hideStartBtn();
-
-    let textDiv = buildElement("div", "text-center mt-3", "text", "<h5>Ok. Make your move.</h5>")
-    page.appendChild(textDiv)
-
     let boardDiv = buildElement("div", "container", "board", "")
     page.appendChild(boardDiv)
 
@@ -129,6 +103,15 @@ function restartGame() {
 
     let col2 = buildElement("div", "col-md-4", "", "")
     row1.appendChild(col2)
+
+    let titleDiv = buildElement("div", "row d-flex mt-5", "title", "<h1>Tic-Tac-Toe</h1> ")
+    col2.appendChild(titleDiv);
+
+    let infoBtn = buildElement("i", "fas fa-question-circle text-secondary text-right h4 mt-3 ml-3", "info", "")
+    titleDiv.appendChild(infoBtn)
+
+    let textDiv = buildElement("div", "text-center mt-2 mb-3", "text", "<h5>Make your move.</h5>")
+    col2.appendChild(textDiv)
 
     let k = 1;
     let col;
@@ -154,14 +137,14 @@ function restartGame() {
     let col3 = buildElement("div", "col-md-4", "", "")
     row1.appendChild(col3)
 
-    let resetBtn = buildElement("button", "btn btn-secondary mt-5", "", "Reset")
+    let resetBtn = buildElement("button", "btn btn-secondary mt-4", "", "Reset")
     resetBtn.onclick = reset;
     document.getElementById("c11").appendChild(resetBtn);
 
-    let playerX = buildElement("div", "text-center text-primary mt-5", "playerX", "<h5>X wins: </h5>" + scoreX)
+    let playerX = buildElement("div", "text-center text-primary mt-4", "playerX", "<h4>X wins: </h4>" + scoreX)
     document.getElementById("c12").appendChild(playerX);
 
-    let playerO = buildElement("div", "text-center text-success mt-5", "playerO", "<h5>O wins: </h5>" + scoreO)
+    let playerO = buildElement("div", "text-center text-success mt-4", "playerO", "<h4>O wins: </h4>" + scoreO)
     document.getElementById("c10").appendChild(playerO);
 
 }
