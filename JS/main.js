@@ -51,8 +51,11 @@ let win = [
     [3, 5, 7]
 ]
 
+let count = 0;
+
 function gameClick() {
     playerNow = !playerNow
+    count = count + 1;
 
     if (playerNow === false && document.getElementById(this.id).innerHTML === '') {
         document.getElementById(this.id).innerHTML = "X"
@@ -71,9 +74,10 @@ function gameClick() {
         if (check1 === check2 && check2 === check3 && check3 === "O") {
             document.getElementById("text").innerHTML = "<h5>GAME OVER: O wins!</h5>"
         }
-
         if (check1 === check2 && check2 === check3 && check3 === "X") {
             document.getElementById("text").innerHTML = "<h5>GAME OVER: X wins!</h5>"
+        } else if (count >= 9) {
+            document.getElementById("text").innerHTML = "<h5>GAME OVER: It's a draw!</h5>"
         }
         // if (!(check1 === check2 && check2 === check3)) {
         //     document.getElementById("text").innerHTML = "<h5>GAME OVER: It's a draw!</h5>"
