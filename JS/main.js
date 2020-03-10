@@ -135,7 +135,7 @@ function updateView() {
                 let row2 = buildElement("div", "row text-center", "", "")
                 col2.appendChild(row2)
                 for (let j = 0; j < 3; j++) {
-                    col = buildElement("div", "col border p-5 bg-white", "tile" + k, "")
+                    col = buildElement("div", "col border bg-white pt-5", "tile" + k, "")
                     col.onclick = gameClick;
                     k++
                     row2.appendChild(col)
@@ -153,7 +153,7 @@ function updateView() {
             let col3 = buildElement("div", "col-md-4", "", "")
             row1.appendChild(col3)
 
-            let resetBtn = buildElement("button", "btn btn-secondary mt-4", "", "Reset")
+            let resetBtn = buildElement("button", "btn btn-danger mt-4", "", "Reset")
             resetBtn.onclick = reset;
             document.getElementById("c11").appendChild(resetBtn);
             break;
