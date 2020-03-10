@@ -1,3 +1,6 @@
+// <-------------------------FUNCTIONS------------------------->
+
+
 let page = document.getElementById("page")
 page.className = "container"
 
@@ -54,11 +57,12 @@ function changeState() {
             row1.appendChild(col2)
 
             let k = 1;
+            let col;
             for (let i = 0; i < 3; i++) {
                 let row2 = buildElement("div", "row text-center", "", "")
                 col2.appendChild(row2)
                 for (let j = 0; j < 3; j++) {
-                    let col = buildElement("div", "col border p-5 bg-white", k, "")
+                    col = buildElement("div", "col border p-5 bg-white", k, "")
                     col.onclick = gameClick;
                     k++
                     row2.appendChild(col)
@@ -104,6 +108,10 @@ function changeState() {
                     if (check1 === check2 && check2 === check3 && check3 === "X") {
                         document.getElementById("text").innerHTML = "<h5>GAME OVER: X wins!</h5>"
                     }
+
+                    if (!(check1 === check2 && check2 === check3 && check3)) {
+                        document.getElementById("text").innerHTML = "<h5>GAME OVER: It's a draw!</h5>"
+                    }
                 }
 
             }
@@ -111,8 +119,6 @@ function changeState() {
             resetBtn.onclick = reset;
             col3.appendChild(resetBtn)
             break;
-
-
 
     }
 
