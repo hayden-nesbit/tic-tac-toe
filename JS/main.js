@@ -36,6 +36,19 @@ function hideStartBtn() {
     let startBtn = document.getElementById("prompt").style = "display: none";
 }
 
+let gameIds = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+function deleteClick() {
+    for (let i = 0; i < gameIds.length; i++) {
+        if ((document.getElementById("text").innerHTML = "<h5>GAME OVER: X wins!</h5>")) {
+            document.getElementById(gameIds[i]).onclick = " ";
+        }
+        if ((document.getElementById("text").innerHTML = "<h5>GAME OVER: O wins!</h5>")) {
+            document.getElementById(gameIds[i]).onclick = " ";
+        }
+    }
+}
+
 ///This function alternates playerNow between "true" and "false", and lets the innerHTML alternate "X" and "O"
 //It also loops through an array of all possible winning combinations and checks if the col at each location has the same text, either "X" or "O"
 
@@ -53,7 +66,7 @@ let win = [
 
 let count = 0;
 
-function gameClick() {
+function gameClick(e) {
     playerNow = !playerNow
     count = count + 1;
 
@@ -72,17 +85,20 @@ function gameClick() {
         let check3 = document.getElementById(win[i][2]).textContent;
 
         if (check1 === check2 && check2 === check3 && check3 === "O") {
-            document.getElementById("text").innerHTML = "<h5>GAME OVER: O wins!</h5>"
+            document.getElementById("text").innerHTML = "<h5>GAME OVER: O wins!</h5>";
+            deleteClick();
         }
+
         if (check1 === check2 && check2 === check3 && check3 === "X") {
-            document.getElementById("text").innerHTML = "<h5>GAME OVER: X wins!</h5>"
+            document.getElementById("text").innerHTML = "<h5>GAME OVER: X wins!</h5>";
+            deleteClick();
+
         } else if (count >= 9) {
             document.getElementById("text").innerHTML = "<h5>GAME OVER: It's a draw!</h5>"
+
         }
-        // if (!(check1 === check2 && check2 === check3)) {
-        //     document.getElementById("text").innerHTML = "<h5>GAME OVER: It's a draw!</h5>"
-        // }
     }
+    e.target.onclick = "";
 
 }
 
@@ -131,12 +147,20 @@ function updateView() {
                 }
             }
 
+            let row3 = buildElement("div", "row text-center", "", "")
+            col2.appendChild(row3)
+            for (let c = 0; c < 3; c++) {
+                colB = buildElement("div", "col", "c" + k, "")
+                k++
+                row3.appendChild(colB)
+            }
+
             let col3 = buildElement("div", "col-md-4", "", "")
             row1.appendChild(col3)
 
-            let resetBtn = buildElement("button", "btn btn-secondary mt-4", "", "Reset Game")
+            let resetBtn = buildElement("button", "btn btn-secondary mt-4", "", "Reset")
             resetBtn.onclick = reset;
-            col3.appendChild(resetBtn)
+            document.getElementById("c11").appendChild(resetBtn);
             break;
 
     }
