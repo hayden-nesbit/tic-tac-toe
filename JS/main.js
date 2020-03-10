@@ -53,7 +53,7 @@ let win = [
 
 let count = 0;
 
-function gameClick() {
+function gameClick(e) {
     playerNow = !playerNow
     count = count + 1;
 
@@ -72,17 +72,19 @@ function gameClick() {
         let check3 = document.getElementById(win[i][2]).textContent;
 
         if (check1 === check2 && check2 === check3 && check3 === "O") {
-            document.getElementById("text").innerHTML = "<h5>GAME OVER: O wins!</h5>"
+            document.getElementById("text").innerHTML = "<h5>GAME OVER: O wins!</h5>";
+            e.target.onclick = "";
         }
+
         if (check1 === check2 && check2 === check3 && check3 === "X") {
-            document.getElementById("text").innerHTML = "<h5>GAME OVER: X wins!</h5>"
+            document.getElementById("text").innerHTML = "<h5>GAME OVER: X wins!</h5>";
+
         } else if (count >= 9) {
             document.getElementById("text").innerHTML = "<h5>GAME OVER: It's a draw!</h5>"
+            e.target.onclick = "";
         }
-        // if (!(check1 === check2 && check2 === check3)) {
-        //     document.getElementById("text").innerHTML = "<h5>GAME OVER: It's a draw!</h5>"
-        // }
     }
+    e.target.onclick = "";
 
 }
 
@@ -131,12 +133,20 @@ function updateView() {
                 }
             }
 
+            let row3 = buildElement("div", "row text-center", "", "")
+            col2.appendChild(row3)
+            for (let c = 0; c < 3; c++) {
+                colB = buildElement("div", "col", "c" + k, "")
+                k++
+                row3.appendChild(colB)
+            }
+
             let col3 = buildElement("div", "col-md-4", "", "")
             row1.appendChild(col3)
 
-            let resetBtn = buildElement("button", "btn btn-secondary mt-4", "", "Reset Game")
+            let resetBtn = buildElement("button", "btn btn-secondary mt-4", "", "Reset")
             resetBtn.onclick = reset;
-            col3.appendChild(resetBtn)
+            document.getElementById("c11").appendChild(resetBtn);
             break;
 
     }
