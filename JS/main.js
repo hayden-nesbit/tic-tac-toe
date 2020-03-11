@@ -104,10 +104,10 @@ function restartGame() {
 
     page.innerHTML = "";
 
-    let titleDiv = buildElement("div", "container text-center mt-5", "title", "<h1>Tic-Tac-Toe</h1>")
+    let titleDiv = buildElement("div", "container text-center mt-5 text-white", "title", "<h1>Tic-Tac-Toe</h1>")
     page.appendChild(titleDiv);
 
-    let textDiv = buildElement("div", "text-center mt-2", "text", "<h5>Make your move.</h5>")
+    let textDiv = buildElement("div", "text-center mt-2 text-white", "text", "<h5>Make your move.</h5>")
     page.appendChild(textDiv)
 
     let boardDiv = buildElement("div", "container", "board", "")
