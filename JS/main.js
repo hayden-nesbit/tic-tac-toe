@@ -1,3 +1,5 @@
+//<-----------------------------------------------GLOBAL VARIABLES AND MAIN FUNCTIONS---------------------------------------------->
+
 let page = document.getElementById("page")
 page.className = "container"
 
@@ -75,19 +77,32 @@ function gameClick(e) {
         document.getElementById("text").innerHTML = "<h5>It's " + input1 + "'s turn</h5>";
     }
 
+    //looks through every index of win array and returns the content (X pr O), then compares the index values of every winning combo and returns winning message if all match
     for (let i = 0; i < win.length; i++) {
-        let check1 = document.getElementById(win[i][0]).textContent;
-        let check2 = document.getElementById(win[i][1]).textContent;
-        let check3 = document.getElementById(win[i][2]).textContent;
-        if (check1 === check2 && check2 === check3 && check3 === "O") {
+        let check1 = document.getElementById(win[i][0]);
+        let check2 = document.getElementById(win[i][1]);
+        let check3 = document.getElementById(win[i][2]);
+        if (check1.textContent === check2.textContent && check2.textContent === check3.textContent && check3.textContent === "O") {
             document.getElementById("text").innerHTML = "<h5>GAME OVER: " + input2 + " wins!</h5>";
             scoreO = scoreO + 1;
+            check1.classList.remove("bg-white")
+            check2.classList.remove("bg-white")
+            check3.classList.remove("bg-white")
+            check1.classList.add("bg-success");
+            check2.classList.add("bg-success");
+            check3.classList.add("bg-success");
             document.getElementById("playerO").innerHTML = "<h4>" + input2 + "'s wins: </h4>" + scoreO;
             game = false;
             deleteClick();
-        } else if (check1 === check2 && check2 === check3 && check3 === "X") {
+        } else if (check1.textContent === check2.textContent && check2.textContent === check3.textContent && check3.textContent === "X") {
             document.getElementById("text").innerHTML = "<h5>GAME OVER: " + input1 + " wins!</h5>";
             scoreX = scoreX + 1;
+            check1.classList.remove("bg-white")
+            check2.classList.remove("bg-white")
+            check3.classList.remove("bg-white")
+            check1.classList.add("bg-primary");
+            check2.classList.add("bg-primary");
+            check3.classList.add("bg-primary");
             document.getElementById("playerX").innerHTML = "<h4>" + input1 + "'s wins: </h4>" + scoreX;
             game = false;
             deleteClick();
@@ -97,12 +112,15 @@ function gameClick(e) {
         }
     }
     e.target.onclick = "";
-
 }
+
+// <----------------------------------------------BUILD AND RESET BOARD--------------------------------------------------->
 
 function restartGame() {
 
     page.innerHTML = "";
+
+    //build main header and turn update divs
 
     let titleDiv = buildElement("div", "container text-center mt-5 text-white", "title", "<h1>Tic-Tac-Toe</h1>")
     page.appendChild(titleDiv);
@@ -110,9 +128,11 @@ function restartGame() {
     let textDiv = buildElement("div", "text-center mt-2 text-white", "text", "<h5>Make your move.</h5>")
     page.appendChild(textDiv)
 
+    //build main board div
     let boardDiv = buildElement("div", "container", "board", "")
     page.appendChild(boardDiv)
 
+    //build col1 in row1 with player name input in col1
     let row1 = buildElement("div", "row text-center mt-4 mb-4", "", "")
     boardDiv.appendChild(row1)
 
@@ -128,7 +148,7 @@ function restartGame() {
     let input1AppendDiv = buildElement("div", "input-group-append", "", "")
     player1NameDiv.appendChild(input1AppendDiv)
 
-    let player1NameBtn = buildElement("button", "btn btn-outline-success", "button-addon1", "Submit")
+    let player1NameBtn = buildElement("button", "btn btn-outline-primary", "button-addon1", "Submit")
     player1NameBtn.onclick = getInput1;
     input1AppendDiv.appendChild(player1NameBtn)
 
@@ -141,10 +161,11 @@ function restartGame() {
     let input2AppendDiv = buildElement("div", "input-group-append", "", "")
     player2NameDiv.appendChild(input2AppendDiv)
 
-    let player2NameBtn = buildElement("button", "btn btn-outline-primary", "button-addon2", "Submit")
+    let player2NameBtn = buildElement("button", "btn btn-outline-success", "button-addon2", "Submit")
     player2NameBtn.onclick = getInput2;
     input2AppendDiv.appendChild(player2NameBtn)
 
+    //build col2 of row2 with main grid (3 rows / 3 cols) in col2
     let col2 = buildElement("div", "col-md-4", "", "")
     row1.appendChild(col2)
 
@@ -161,6 +182,7 @@ function restartGame() {
         }
     }
 
+    //build row 3 with 3 columns for 1)player 1 wins 2) reset button 3) player 2 wins
     let row3 = buildElement("div", "row text-center", "", "")
     col2.appendChild(row3)
     for (let c = 0; c < 3; c++) {
@@ -176,10 +198,10 @@ function restartGame() {
     resetBtn.onclick = reset;
     document.getElementById("c11").appendChild(resetBtn);
 
-    let playerX = buildElement("div", "text-center text-success mt-4", "playerX", "<h4>" + input1 + "'s wins: </h4>" + scoreX)
+    let playerX = buildElement("div", "text-center text-primary mt-4", "playerX", "<h4>" + input1 + "'s wins: </h4>" + scoreX)
     document.getElementById("c12").appendChild(playerX);
 
-    let playerO = buildElement("div", "text-center text-primary mt-4", "playerO", "<h4>" + input2 + "'s wins: </h4>" + scoreO)
+    let playerO = buildElement("div", "text-center text-success mt-4", "playerO", "<h4>" + input2 + "'s wins: </h4>" + scoreO)
     document.getElementById("c10").appendChild(playerO);
 
 }
