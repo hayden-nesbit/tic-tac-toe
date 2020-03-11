@@ -26,10 +26,14 @@ function buildElement(elementType, classes, id, textContent, type = "", placehol
 
 function getInput1() {
     input1 = document.getElementById("name1Input").value;
+    document.getElementById("name1Input").value = "";
+    document.getElementById("playerX").innerHTML = "<h4>" + input1 + "'s wins: </h4>" + scoreX;
 }
 
 function getInput2() {
     input2 = document.getElementById("name2Input").value;
+    document.getElementById("name2Input").value = "";
+    document.getElementById("playerO").innerHTML = "<h4>" + input2 + "'s wins: </h4>" + scoreX;
 }
 
 let gameIds = ["tile1", "tile2", "tile3", "tile4", "tile5", "tile6", "tile7", "tile8", "tile9"]
@@ -172,10 +176,10 @@ function restartGame() {
     resetBtn.onclick = reset;
     document.getElementById("c11").appendChild(resetBtn);
 
-    let playerX = buildElement("div", "text-center text-primary mt-4", "playerX", "<h4>X wins: </h4>" + scoreX)
+    let playerX = buildElement("div", "text-center text-success mt-4", "playerX", "<h4>" + input1 + "'s wins: </h4>" + scoreX)
     document.getElementById("c12").appendChild(playerX);
 
-    let playerO = buildElement("div", "text-center text-success mt-4", "playerO", "<h4>O wins: </h4>" + scoreO)
+    let playerO = buildElement("div", "text-center text-primary mt-4", "playerO", "<h4>" + input2 + "'s wins: </h4>" + scoreO)
     document.getElementById("c10").appendChild(playerO);
 
 }
